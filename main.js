@@ -3,7 +3,7 @@ import {createApp} from "./src/app.js";
 
 let count = 0;
 
-function run() {
+function run(withFix) {
     let stopCount = count + 20;
 
     const intervalID = setInterval(() => {
@@ -23,11 +23,20 @@ function run() {
                 texture: true
             })
 
-            fixMemoryLeak(r)
+            withFix && fixMemoryLeak(r)
         }, 1)
     }, 16)
 }
 
-document.getElementById('run').addEventListener('click', () => {
+const withoutFix = document.getElementById('run-without-fix');
+const withFix = document.getElementById('run-with-fix');
+
+withoutFix.addEventListener('click', () => {
     run();
-})
+    withFix.remove();
+});
+
+withFix.addEventListener('click', () => {
+    run(true);
+    withoutFix.remove();
+});
