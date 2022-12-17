@@ -17,8 +17,11 @@ function run() {
         setTimeout(() => {
             const r = app.renderer;
 
-            document.body.removeChild(app.view);
-            app.destroy()
+            app.destroy(true, {
+                baseTexture: true,
+                children: true,
+                texture: true
+            })
 
             fixMemoryLeak(r)
         }, 1)
